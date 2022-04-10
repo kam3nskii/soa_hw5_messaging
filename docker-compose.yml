@@ -1,0 +1,24 @@
+version: "3"
+
+services:
+    rabbitmq:
+        image: rabbitmq:3.9-management
+        hostname: "rabbitmq"
+        ports:
+            - "15672:15672"
+            - "5672:5672"
+    web:
+        build: 
+            context: server
+        image: kam3nskii/hw5_messaging_server
+        volumes:
+            - data-volume:/data
+    worker:
+        build: 
+            context: worker
+        image: kam3nskii/hw5_messaging_worker
+        volumes:
+            - data-volume:/data
+
+volumes:
+    data-volume: 
